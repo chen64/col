@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <context:annotation-config/>
+    <context:component-scan base-package="com.tallgeese"></context:component-scan>
+    <!-- turn on spring ORM annotations -->
+    <tx:annotation-driven/>
+    <!-- turn on spring MVC annotations -->
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    	<property name="driverClassName" value="org.postgresql.Driver"></property>
+    	<property name="url" value="jdbc:postgresql://revaturetraining.c1qpbqs10ada.us-east-1.rds.amazonaws.com:5432/gachadb"></property>
+    	<property name="username" value="gachauser"></property>
+    	<property name="password" value="gachapass"></property>
+    </bean>
+    <!-- SESSION FACTORY 
+    this bean is hibernate instance for creating hibernate sessions-->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"></property>
+    	<property name="packagesToScan" value="com.tallgeese.model"></property>
+    	<property name="hibernateProperties">
+    		<props>
+    			<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+    			<prop key="hibernate.show_sql">false</prop>
+    			<prop key="hibernate.format_sql">false</prop>
+    			<prop key="hibernate.hbm2ddl.auto">none</prop>
+    		</props>
+    	</property>
+    </bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+</beans>

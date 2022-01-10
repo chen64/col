@@ -1,0 +1,46 @@
+<div class="container">
+  <h2>Inventory</h2>
+  <div class="row">
+    <div class="col-3"></div>
+    <div class="col-3" style="text-align: center;"></div>
+    <div class="col-3"></div>
+    <div class="col-3"></div>
+  </div>
+  <br />
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Collectable
+          </th>
+          <th>Mech</th>
+          <th>Power</th>
+          <th>Rarity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let temp of collList">
+          <td>
+            <!-- <img [src]="temp.imageURL" [title]="temp.name" /> -->
+            <div class="card" style="width: 18rem;">
+              <img
+                [src]="temp.imageURL"
+                [title]="temp.name"
+                height="75%"
+                class="card-img-top"
+              />
+              <div class="card-body">
+                <h5 class="card-title">{{ temp.name }}</h5>
+                <p class="card-text">{{ temp.power }}</p>
+              </div>
+            </div>
+          </td>
+          <td>{{ temp.name }}</td>
+          <td>{{ temp.power }}</td>
+          <td>{{ temp.rarity }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
